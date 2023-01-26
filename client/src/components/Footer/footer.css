@@ -1,0 +1,10 @@
+.footer {
+    padding: 20px;
+    background-color: #32caff;
+}
+
+.footer__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
