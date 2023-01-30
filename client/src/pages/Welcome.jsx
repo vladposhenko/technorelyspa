@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import './welcome.css'
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {COMPANIES_ROUTE} from "../utils/consts";
-import {Spinner} from "react-bootstrap";
+import {COMPANIES_ROUTE, LOGIN_ROUTE} from "../utils/consts";
+import {Button, Spinner} from "react-bootstrap";
 const Welcome = () => {
     const isAuth = useSelector(state => state.auth.isAuth);
     const isLoading = useSelector(state => state.auth.isLoading)
@@ -18,7 +18,7 @@ const Welcome = () => {
                 <h1 className="welcome__title">Welcome to Technorely Management System</h1>
                 <p className="welcome__description">Here you can manage your companies.</p>
                 <div>
-                    <button className="welcome__btn">Start</button>
+                    <Button onClick={() => navigate(LOGIN_ROUTE)} variant="secondary" style={{width:'100px'}} className="mt-3">Start</Button>
                 </div>
             </div>
         </div>

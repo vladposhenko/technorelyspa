@@ -27,7 +27,8 @@ import {ApiTokenCheckMiddleware} from "./middleware/auth.middleware";
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       models: [User, Role, UserRoles, Company],
-      autoLoadModels:true
+      autoLoadModels:true,
+      synchronize:true,
     }),
     RolesModule,
     AuthModule,

@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {createUserCompany, setIsEditMode, updateUserCompany} from "../../redux/companies-reducer";
 
-const CreateCompany = () => {
+const CompanyForm = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const isEditMode = useSelector(state => state.companies.isEditMode)
@@ -44,41 +44,44 @@ const CreateCompany = () => {
     return (
         <div className="content position-relative" style={{display:'block', width:'100%'}}>
             <Button variant="secondary" onClick={() => navigate(-1)} style={{position:'absolute', left:'20px', top:'0', borderRadius:'50%'}} >/-</Button>
-            <Form className="d-flex flex-column m-auto" style={{width: '30%'}}>
-                <h2 className="mb-3 fw-bold" style={{fontSize:'20px'}}>Создание новой компании</h2>
+            <h2 className="mb-3 fw-bold" style={{fontSize:'20px'}}>Создание новой компании</h2>
+            <Form className="d-flex flex-column" style={{width: '30%', margin: '50px auto'}}>
+
+                <p className="text-lg-start mb-3">Имя компании: </p>
                 <Form.Control
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Введите название компании"
                 ></Form.Control>
+                <p className="text-lg-start mb-3 mt-3">Адрес компании: </p>
                 <Form.Control
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="mt-3"
                     placeholder="Введите адрес компании"
                 ></Form.Control>
+                <p className="text-lg-start mb-3 mt-3">Сфера деятельности: </p>
                 <Form.Control
                     value={serviceOfActivity}
                     onChange={(e) => setServiceOfActivity(e.target.value)}
-                    className="mt-3"
                     placeholder="Введите сферу деятельности"
                 ></Form.Control>
+                <p className="text-lg-start mb-3 mt-3">Количество работников: </p>
                 <Form.Control
                     value={numberOfEmployees}
                     onChange={(e) => setNumberOfEmployees(e.target.value)}
-                    className="mt-3"
                     placeholder="Введите количество работников компании"
                 ></Form.Control>
+                <p className="text-lg-start mb-3 mt-3">Описание компании: </p>
                 <Form.Control
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    className="mt-3"
+                    type="textarea"
                     placeholder="Введите  описание компании"
                 ></Form.Control>
+                <p className="text-lg-start mb-3 mt-3">Тип компании: </p>
                 <Form.Control
                     value={type}
                     onChange={(e) => setType(e.target.value)}
-                    className="mt-3"
                     placeholder="Введите тип компании"
                 ></Form.Control>
                 <Button variant="secondary" onClick={handleClick}  className="mt-3" > {isEditMode ? 'Редактировать' : 'Создать компанию'} </Button>
@@ -87,4 +90,4 @@ const CreateCompany = () => {
     );
 };
 
-export default CreateCompany;
+export default CompanyForm;

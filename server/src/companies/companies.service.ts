@@ -40,4 +40,17 @@ export class CompaniesService {
         const companies = await this.companyRepository.findAll({include:{all:true}})
         return companies
     }
+
+    async paginate(req: any) {
+        const {page = 0, size = 6} = req.query;
+        let options = {
+            limit: +size,
+            offset: (+page) * (+size)
+        }
+        const { count, rows } = await this.companyRepository.findAndCountAll(options)
+        return {
+            total: count,
+            companies: rows
+        }
+    }
 }

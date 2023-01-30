@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post, Put, Req, UseGuards} from "@nestjs/common";
+import {Body, Controller, Get, Post, Put, Req, UseGuards, UsePipes} from "@nestjs/common";
 import {CreateUserDto} from "./dto/create-user.dto";
 import {UserService} from "./user.service";
 import {Roles} from "../auth/roles-auth.decorator";
@@ -8,6 +8,7 @@ import {BanUserDto} from "./dto/ban-user.dto";
 import {JwtAuthGuard} from "../auth/jwt-auth.guard";
 import {Request} from "express";
 import {UpdateUserDto} from "./dto/update-user.dto";
+import {ValidationPipe} from "../pipes/validation.pipe";
 
 @Controller('users')
 export class UsersController {
@@ -16,6 +17,7 @@ export class UsersController {
     }
 
     @Post()
+    @UsePipes(ValidationPipe)
     create(@Body() userDto: CreateUserDto) {
         return this.userService.createUser(userDto)
     }
@@ -31,8 +33,8 @@ export class UsersController {
     @Roles('ADMIN')
     @UseGuards(RolesGuard)
     @Get()
-    getAll() {
-        return this.userService.getAllUsers()
+    paginate(@Req() req: Request) {
+        return this.userService.paginate(req)
     }
 
 

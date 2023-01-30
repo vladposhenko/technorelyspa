@@ -20,8 +20,8 @@ export class CompaniesController {
     @Roles('ADMIN')
     @UseGuards(RolesGuard)
     @Get()
-    getAll() {
-        return this.companiesService.getAllCompanies()
+    getAll(@Req() req: Request) {
+        return this.companiesService.paginate(req)
     }
 
     @Get('/my')

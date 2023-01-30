@@ -18,7 +18,7 @@ const AppRouter = () => {
             {publicRoutes.map(({path, Component}) =>
                 <Route key={path} exact path={path} element={<Component/>}/>
             )}
-            {isAdmin && adminRoutes.map(({path, Component}) =>
+            {isAdmin && isAuth && adminRoutes.map(({path, Component}) =>
                 <Route key={path} exact path={path} element={<Component/>}/>
             )}
             <Route path="*" element={<Welcome/>}></Route>

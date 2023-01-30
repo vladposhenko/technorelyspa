@@ -1,8 +1,9 @@
-import {Body, Controller, Get, Post, Req, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, Post, Req, UseGuards, UsePipes} from '@nestjs/common';
 import {CreateUserDto} from "../users/dto/create-user.dto";
 import {AuthService} from "./auth.service";
 import {JwtAuthGuard} from "./jwt-auth.guard";
 import { Request } from 'express'
+import {ValidationPipe} from "../pipes/validation.pipe";
 
 @Controller('auth')
 export class AuthController {
@@ -17,6 +18,7 @@ export class AuthController {
     }
 
     @Post('signup')
+    @UsePipes(ValidationPipe)
     registration(@Body() userDto: CreateUserDto) {
         return this.authService.registration(userDto)
     }

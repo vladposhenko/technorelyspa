@@ -1,5 +1,6 @@
 import {
-    ADMIN_ROUTE,
+    ADMIN_COMPANIES_ROUTE,
+    ADMIN_ROUTE, ADMIN_USERS_ROUTE,
     COMPANIES_ROUTE, COMPANY_INFO,
     CREATE_COMPANY_ROUTE,
     LOGIN_ROUTE, PROFILE_ROUTE,
@@ -10,9 +11,11 @@ import Admin from "./pages/Admin";
 import Auth from "./pages/Auth";
 import Welcome from "./pages/Welcome";
 import Companies from "./pages/Companies";
-import CreateCompany from "./components/CreateCompany/CreateCompany";
+import CompanyForm from "./components/CompanyForm/CompanyForm";
 import CompanyInfo from "./pages/CompanyInfo";
 import Profile from "./pages/Profile";
+import AllUsers from "./components/AllUsers/AllUsers";
+import AllCompanies from "./components/AllCompanies/AllCompanies";
 
 export const authRoutes = [
     {
@@ -21,7 +24,7 @@ export const authRoutes = [
     },
     {
         path:CREATE_COMPANY_ROUTE,
-        Component:CreateCompany
+        Component:CompanyForm
     },
     {
         path:COMPANY_INFO,
@@ -56,5 +59,13 @@ export const adminRoutes = [
     {
         path:ADMIN_ROUTE,
         Component:Admin
+    },
+    {
+        path:ADMIN_USERS_ROUTE,
+        Component:AllUsers
+    },
+    {
+        path:ADMIN_COMPANIES_ROUTE,
+        Component:AllCompanies
     },
 ]

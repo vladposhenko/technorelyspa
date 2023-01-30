@@ -13,9 +13,8 @@ const userReducer = (state = initialState, action) => {
             return {...state, user: action.payload}
         }
         case SET_IS_USER_ADMIN:{
-            debugger;
             let isAdmin = state.user.roles.some((role) => role.value === 'ADMIN' )
-            return {...state, isUserAdmin: isAdmin}
+            return {...state, isUserAdmin: action.payload ? action.payload : isAdmin}
         }
         default:{
             return state
@@ -25,7 +24,7 @@ const userReducer = (state = initialState, action) => {
 
 
 export const setUser = (user) => ({ type:SET_USER, payload:{...user} })
-export const setIsUserAdmin = () => ({ type: SET_IS_USER_ADMIN })
+export const setIsUserAdmin = (isUserAdmin) => ({ type: SET_IS_USER_ADMIN, payload:isUserAdmin})
 
 
 export default userReducer
