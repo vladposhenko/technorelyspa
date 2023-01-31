@@ -21,7 +21,7 @@ export class UserService {
 
     async createUser(dto: CreateUserDto) {
         const user = await this.userRepository.create(dto)
-        const role = await this.roleService.getRoleByValue('ADMIN')
+        const role = await this.roleService.getRoleByValue('USER')
         console.log(role)
         await user.$set('roles', [role.id])
         user.roles = [role]
@@ -67,9 +67,15 @@ export class UserService {
     }
 
 
-    async updateUser(dto:UpdateUserDto) {
-        const id = dto.id
-        const updatedUser = this.userRepository.update({...dto}, {where: {id}})
-        return updatedUser
+    async updateUser(dto:UpdateUserDto, req:any) {
+        if(req.user.id === dto.id) {
+            const id = dto.id
+            await this.userRepository.update({...dto}, {where: {id}})
+            return dto
+        } else {
+            throw new HttpException('Нет доступа к даному пользователю', HttpStatus.FORBIDDEN)
+        }
+
+
     }
 }

@@ -10,10 +10,10 @@ const Footer = () => {
                     <p>Created by Vladyslav Poshenko</p>
                     <Nav className="justify-content-end" activeKey="/home">
                         <Nav.Item>
-                            <Nav.Link href="#">Telegram</Nav.Link>
+                            <Nav.Link href="">Telegram</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="link-1">Github</Nav.Link>
+                            <Nav.Link href="https://github.com/vladposhenko" eventKey="link-1">Github</Nav.Link>
                         </Nav.Item>
                     </Nav>
                 </Container>

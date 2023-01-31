@@ -19,3 +19,8 @@ export const check = async () => {
     localStorage.setItem('token', data.token)
     return jwt_decode(data.token)
 }
+
+export const update = async (updatedUser) => {
+    const {data} = await  $authHost.put('/users', updatedUser)
+    return data
+}

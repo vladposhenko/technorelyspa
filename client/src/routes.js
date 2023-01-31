@@ -3,7 +3,7 @@ import {
     ADMIN_ROUTE, ADMIN_USERS_ROUTE,
     COMPANIES_ROUTE, COMPANY_INFO,
     CREATE_COMPANY_ROUTE,
-    LOGIN_ROUTE, PROFILE_ROUTE,
+    LOGIN_ROUTE, PROFILE_EDIT_ROUTE, PROFILE_ROUTE,
     REGISTRATION_ROUTE,
     WELCOME_ROUTE
 } from "./utils/consts";
@@ -16,6 +16,7 @@ import CompanyInfo from "./pages/CompanyInfo";
 import Profile from "./pages/Profile";
 import AllUsers from "./components/AllUsers/AllUsers";
 import AllCompanies from "./components/AllCompanies/AllCompanies";
+import EditProfile from "./components/EditProfile/EditProfile";
 
 export const authRoutes = [
     {
@@ -37,6 +38,10 @@ export const authRoutes = [
     {
         path:PROFILE_ROUTE,
         Component:Profile
+    },
+    {
+        path:PROFILE_EDIT_ROUTE,
+        Component:EditProfile
     }
 ]
 

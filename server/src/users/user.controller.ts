@@ -25,8 +25,8 @@ export class UsersController {
 
     @Put()
     @UseGuards(JwtAuthGuard)
-    update(@Body() userDto: UpdateUserDto) {
-        return this.userService.updateUser(userDto)
+    update(@Body() userDto: UpdateUserDto, @Req() req: Request) {
+        return this.userService.updateUser(userDto, req)
     }
 
 
