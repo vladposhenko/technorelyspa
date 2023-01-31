@@ -3,8 +3,6 @@ import {redirect, Route, Routes} from "react-router-dom";
 import {adminRoutes, authRoutes, publicRoutes} from "../../routes";
 import Welcome from "../../pages/Welcome";
 import {useSelector} from "react-redux";
-import {ADMIN_ROUTE} from "../../utils/consts";
-import Admin from "../../pages/Admin";
 
 const AppRouter = () => {
     const isAuth = useSelector(state => state.auth.isAuth);

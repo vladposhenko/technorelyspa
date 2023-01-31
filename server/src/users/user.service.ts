@@ -75,7 +75,10 @@ export class UserService {
         } else {
             throw new HttpException('Нет доступа к даному пользователю', HttpStatus.FORBIDDEN)
         }
+    }
 
-
+    async getOneUser(id) {
+        const user = await this.userRepository.findByPk(id, {include:{all:true}})
+        return user
     }
 }

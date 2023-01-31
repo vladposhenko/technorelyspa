@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post, Put, Req, UseGuards, UsePipes} from "@nestjs/common";
+import {Body, Controller, Get, Param, Post, Put, Req, UseGuards, UsePipes} from "@nestjs/common";
 import {CreateUserDto} from "./dto/create-user.dto";
 import {UserService} from "./user.service";
 import {Roles} from "../auth/roles-auth.decorator";
@@ -35,6 +35,13 @@ export class UsersController {
     @Get()
     paginate(@Req() req: Request) {
         return this.userService.paginate(req)
+    }
+
+    @Roles('ADMIN')
+    @UseGuards(RolesGuard)
+    @Get('/:id')
+    getOneUser(@Param('id') id:string) {
+        return this.userService.getOneUser(id)
     }
 
 

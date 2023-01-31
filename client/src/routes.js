@@ -3,11 +3,10 @@ import {
     ADMIN_ROUTE, ADMIN_USERS_ROUTE,
     COMPANIES_ROUTE, COMPANY_INFO,
     CREATE_COMPANY_ROUTE,
-    LOGIN_ROUTE, PROFILE_EDIT_ROUTE, PROFILE_ROUTE,
+    LOGIN_ROUTE, PROFILE_ADMIN_ROUTE, PROFILE_EDIT_ROUTE, PROFILE_ROUTE,
     REGISTRATION_ROUTE,
     WELCOME_ROUTE
 } from "./utils/consts";
-import Admin from "./pages/Admin";
 import Auth from "./pages/Auth";
 import Welcome from "./pages/Welcome";
 import Companies from "./pages/Companies";
@@ -62,15 +61,15 @@ export const publicRoutes = [
 
 export const adminRoutes = [
     {
-        path:ADMIN_ROUTE,
-        Component:Admin
-    },
-    {
         path:ADMIN_USERS_ROUTE,
         Component:AllUsers
     },
     {
         path:ADMIN_COMPANIES_ROUTE,
         Component:AllCompanies
+    },
+    {
+        path:PROFILE_ADMIN_ROUTE,
+        Component:Profile
     },
 ]

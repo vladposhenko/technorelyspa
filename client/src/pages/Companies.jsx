@@ -25,6 +25,8 @@ const Companies = () => {
                             onClick={() => navigate('/companies/' + company.name)}
                             style={{cursor:'pointer', width:'30%'}}>
                             <Card.Header as="h3">{company.name}</Card.Header>
+                            <Card.Img style={{width:'50px'}} className="m-auto mt-3"
+                                      src="https://www.seekpng.com/png/full/475-4758272_line-logo-black-png-logo.png"></Card.Img>
                             <Card.Text className="mt-3">
                                 Сфера деятельности: {company.service_of_activity}
                             </Card.Text>

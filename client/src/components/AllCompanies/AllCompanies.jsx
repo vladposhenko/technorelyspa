@@ -23,6 +23,8 @@ const AllCompanies = () => {
                         <Card
                             style={{cursor:'pointer', width:'30%'}}>
                             <Card.Header as="h3">{company.name}</Card.Header>
+                            <Card.Img style={{width:'50px'}} className="m-auto mt-3"
+                                      src="https://www.seekpng.com/png/full/475-4758272_line-logo-black-png-logo.png"></Card.Img>
                             <Button style={{width: '50%', margin:'20px auto'}} variant="outline-secondary">Детальнее</Button>
                         </Card>
                     ))}
