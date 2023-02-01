@@ -1,9 +1,11 @@
-import {createCompany, getCompanies, getCompany, updateCompany} from "../http/companiesApi";
+import {createCompany, deleteCompany, getCompanies, getCompany, updateCompany} from "../http/companiesApi";
+import {setIsLoading} from "./auth-reducer";
 
 const SET_COMPANIES = 'SET_COMPANIES'
 const SET_IS_LOADING = 'SET_IS_LOADING'
 const SET_CURRENT_COMPANY = 'SET_CURRENT_COMPANY'
 const SET_EDIT_MODE = 'SET_EDIT_MODE'
+const DELETE_COMPANY = 'DELETE_COMPANY'
 
 const initialState = {
     companiesList:[],
@@ -28,6 +30,11 @@ const companiesReducer = (state = initialState, action) => {
         case SET_EDIT_MODE: {
             return {...state, isEditMode: action.payload}
         }
+        case DELETE_COMPANY : {
+            debugger;
+            let companiesList = state.companiesList.filter(c => c.id !== action.payload)
+            return {...state, companiesList}
+        }
         default:{
             return state
         }
@@ -38,6 +45,7 @@ const companiesReducer = (state = initialState, action) => {
 export const setCompanies = (companies) => ({ type:SET_COMPANIES, payload:companies })
 export const setCurrentCompany = (company) => ({ type:SET_CURRENT_COMPANY, payload:company })
 export const setIsEditMode = (isEditMode) => ({ type:SET_EDIT_MODE, payload:isEditMode })
+export const deleteMyCompanyAction = (id) => ({ type:DELETE_COMPANY, payload:id })
 
 export const getUserCompanies = () => async (dispatch) => {
     try {
@@ -59,8 +67,10 @@ export const createUserCompany = (company) => async (dispatch) => {
 
 export const updateUserCompany = (company) => async (dispatch) => {
     try {
-        let response = await updateCompany(company)
+        dispatch(setIsLoading(true))
+        await updateCompany(company)
         dispatch(getUserCompanies())
+        dispatch(setIsLoading(false))
     } catch (e) {
         console.log(e)
     }
@@ -68,9 +78,22 @@ export const updateUserCompany = (company) => async (dispatch) => {
 
 export const getCompanyByName = (name) => async (dispatch) => {
     try {
-        let response = await getCompany(name)
-        debugger
-        dispatch(setCurrentCompany(response.data))
+        dispatch(setIsLoading(true))
+        let { data } = await getCompany(name)
+        dispatch(setCurrentCompany(data))
+        dispatch(setIsLoading(false))
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const deleteMyCompany = (id) => async (dispatch) => {
+    try {
+        debugger;
+        dispatch(setIsLoading(true))
+        await deleteCompany(id)
+        dispatch(deleteMyCompanyAction(id))
+        dispatch(setIsLoading(false))
     } catch (e) {
         console.log(e)
     }

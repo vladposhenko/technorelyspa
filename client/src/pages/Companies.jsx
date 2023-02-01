@@ -1,17 +1,20 @@
 import React, {useEffect} from 'react';
-import {Button, Card, ListGroup} from "react-bootstrap";
+import {Button, Card, ListGroup, Spinner} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {getUserCompanies} from "../redux/companies-reducer";
+import {deleteMyCompany, getUserCompanies} from "../redux/companies-reducer";
 import {useNavigate} from "react-router-dom";
+import {deleteCompany} from "../http/companiesApi";
 
 const Companies = () => {
     const dispatch = useDispatch()
     const companies = useSelector(state => state.companies.companiesList)
+    const isLoading = useSelector(state => state.auth.isLoading)
     const navigate = useNavigate()
     useEffect(() => {
         dispatch(getUserCompanies())
     },[])
 
+    if(isLoading) return <Spinner/>
     return (
         <div className="content p-0" style={{display:'block', width:'100%'}}>
             <div className="p-4">
@@ -22,15 +25,16 @@ const Companies = () => {
                 <div className="mt-3 d-flex flex-row flex-wrap justify-content-center gap-3">
                     {companies && companies?.map((company) =>
                         <Card
-                            onClick={() => navigate('/companies/' + company.name)}
-                            style={{cursor:'pointer', width:'30%'}}>
-                            <Card.Header as="h3">{company.name}</Card.Header>
+                            style={{cursor:'pointer', width:'370px'}}>
+                            <Card.Header className="d-flex justify-content-between align-items-center" as="h3">{company.name}
+                                <Button onClick={() => dispatch(deleteMyCompany(company.id))} size="sm" variant="secondary">Удалить</Button>
+                            </Card.Header>
                             <Card.Img style={{width:'50px'}} className="m-auto mt-3"
                                       src="https://www.seekpng.com/png/full/475-4758272_line-logo-black-png-logo.png"></Card.Img>
                             <Card.Text className="mt-3">
                                 Сфера деятельности: {company.service_of_activity}
                             </Card.Text>
-                            <Button style={{width: '50%', margin:'20px auto'}} variant="outline-secondary">Детальнее</Button>
+                            <Button onClick={() => navigate('/companies/' + company.name)} style={{width: '50%', margin:'20px auto'}} variant="outline-secondary">Детальнее</Button>
                         </Card>
                     )}
                 </div>

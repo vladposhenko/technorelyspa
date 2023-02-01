@@ -18,8 +18,8 @@ const userReducer = (state = initialState, action) => {
             return {...state, user: action.payload}
         }
         case SET_IS_USER_ADMIN:{
-            let isAdmin = state.user.roles.some((role) => role.value === 'ADMIN' )
-            return {...state, isUserAdmin: action.payload ? action.payload : isAdmin}
+            let isAdmin = action.payload.roles.some((role) => role.value === 'ADMIN' )
+            return {...state, isUserAdmin: isAdmin}
         }
         case SET_IS_PROFILE_EDITING: {
             return {...state, isProfileEditing: action.payload}
@@ -37,7 +37,7 @@ const userReducer = (state = initialState, action) => {
 
 
 export const setUser = (user) => ({ type:SET_USER, payload:{...user} })
-export const setIsUserAdmin = (isUserAdmin) => ({ type: SET_IS_USER_ADMIN, payload:isUserAdmin})
+export const setIsUserAdmin = (user) => ({ type: SET_IS_USER_ADMIN, payload:user})
 export const setIsProfileEditing = (isProfileEditing) => ({ type: SET_IS_USER_ADMIN, payload:isProfileEditing})
 export const updateProfile = (updatedProfile) => ({type: UPDATE_PROFILE, payload: updatedProfile})
 

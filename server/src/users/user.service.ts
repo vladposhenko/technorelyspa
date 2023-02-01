@@ -81,4 +81,9 @@ export class UserService {
         const user = await this.userRepository.findByPk(id, {include:{all:true}})
         return user
     }
+
+    async editUserByAdmin(dto: UpdateUserDto, id:string) {
+        await this.userRepository.update({...dto}, {where: {id}})
+        return dto
+    }
 }

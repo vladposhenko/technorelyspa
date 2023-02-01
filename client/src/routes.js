@@ -2,7 +2,7 @@ import {
     ADMIN_COMPANIES_ROUTE,
     ADMIN_ROUTE, ADMIN_USERS_ROUTE,
     COMPANIES_ROUTE, COMPANY_INFO,
-    CREATE_COMPANY_ROUTE,
+    CREATE_COMPANY_ROUTE, EDIT_COMPANY_ROUTE, EDIT_PROFILE_ADMIN,
     LOGIN_ROUTE, PROFILE_ADMIN_ROUTE, PROFILE_EDIT_ROUTE, PROFILE_ROUTE,
     REGISTRATION_ROUTE,
     WELCOME_ROUTE
@@ -24,6 +24,10 @@ export const authRoutes = [
     },
     {
         path:CREATE_COMPANY_ROUTE,
+        Component:CompanyForm
+    },
+    {
+        path:EDIT_COMPANY_ROUTE,
         Component:CompanyForm
     },
     {
@@ -72,4 +76,8 @@ export const adminRoutes = [
         path:PROFILE_ADMIN_ROUTE,
         Component:Profile
     },
+    {
+        path:EDIT_PROFILE_ADMIN,
+        Component:EditProfile
+    }
 ]

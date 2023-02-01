@@ -72,7 +72,7 @@ export const loginThunk = (email, password) => async (dispatch) => {
         let response = await login(email, password)
         dispatch(setAuth(true))
         dispatch(setUser(response))
-        dispatch(setIsUserAdmin())
+        dispatch(setIsUserAdmin(response))
         dispatch(setIsLoading(false))
     } catch (e) {
         dispatch(setAuthError(e.response.data.message))
@@ -86,6 +86,7 @@ export const registrationThunk = (newUser) => async (dispatch) => {
         let response = await register(newUser)
         dispatch(setAuth(true))
         dispatch(setUser(response))
+        dispatch(setIsUserAdmin(response))
         dispatch(setIsLoading(false))
     } catch (e) {
         dispatch(setAuthError(e.response.data.message || e.response.data))
@@ -99,7 +100,7 @@ export const checkThunk = () => async (dispatch) => {
         let response = await check()
         dispatch(setAuth(true))
         dispatch(setUser(response))
-        dispatch(setIsUserAdmin())
+        dispatch(setIsUserAdmin(response))
         dispatch(setIsLoading(false))
     } catch (e) {
         console.log(e)

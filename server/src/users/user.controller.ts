@@ -32,6 +32,16 @@ export class UsersController {
 
     @Roles('ADMIN')
     @UseGuards(RolesGuard)
+    @Put('/admin/:id')
+    editUserByAdmin(@Body() userDto: UpdateUserDto,
+                    @Param('id') id:string
+                    ) {
+        return this.userService.editUserByAdmin(userDto, id)
+    }
+
+
+    @Roles('ADMIN')
+    @UseGuards(RolesGuard)
     @Get()
     paginate(@Req() req: Request) {
         return this.userService.paginate(req)

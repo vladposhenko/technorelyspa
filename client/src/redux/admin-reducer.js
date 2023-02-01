@@ -1,5 +1,6 @@
-import {getCompanies, getOneUser, getUsers} from "../http/adminApi";
+import {getCompanies, getOneUser, getUsers, updateAdminUser} from "../http/adminApi";
 import {setIsLoading} from "./auth-reducer";
+import {update} from "../http/userApi";
 
 // ACTIONS
 const SET_USERS = 'SET_USERS'
@@ -7,6 +8,7 @@ const SET_ALL_COMPANIES = 'SET_ALL_COMPANIES'
 const SET_TOTAL_COUNT_USERS = 'SET_TOTAL_COUNT_USERS'
 const SET_TOTAL_COUNT_COMPANIES = 'SET_TOTAL_COUNT_COMPANIES'
 const SET_CURRENT_USER = 'SET_CURRENT_USER'
+const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE'
 
 const initialState = {
     users:[],
@@ -35,6 +37,10 @@ const adminReducer = (state = initialState, action) => {
         case SET_CURRENT_USER: {
             return {...state, currentUser: action.payload}
         }
+        case UPDATE_USER_PROFILE: {
+            let updatedUser = action.payload
+            return {...state, currentUser: { ...state.user, ...updatedUser }}
+        }
         default:{
             return state
         }
@@ -48,6 +54,7 @@ export const setAllCompanies = (companies) => ({ type:SET_ALL_COMPANIES, payload
 export const setTotalCountUsers = (count) => ({ type:SET_TOTAL_COUNT_USERS, payload: count })
 export const setTotalCountCompanies = (count) => ({ type:SET_TOTAL_COUNT_COMPANIES, payload: count })
 export const setCurrentUser = (user) => ({ type:SET_CURRENT_USER, payload: user })
+export const updateUserProfile = (user) => ({ type:UPDATE_USER_PROFILE, payload: user })
 
 
 // THUNKS
@@ -80,6 +87,19 @@ export const getOneUserThunk = (id) => async (dispatch) => {
         dispatch(setIsLoading(true))
         let {data} = await getOneUser(id)
         dispatch(setCurrentUser(data))
+        dispatch(setIsLoading(false))
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+
+export const updateAdminUserThunk = (id, updatedUser) => async (dispatch) => {
+    try {
+        debugger;
+        dispatch(setIsLoading(true))
+        let data = await updateAdminUser(id,updatedUser)
+        dispatch(updateUserProfile(data))
         dispatch(setIsLoading(false))
     } catch (e) {
         console.log(e)

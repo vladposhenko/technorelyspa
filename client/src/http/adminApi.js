@@ -15,3 +15,8 @@ export const getOneUser = async (id) => {
     const data = await $authHost.get('/users/' + id)
     return data
 }
+
+export const updateAdminUser = async (id, updatedUser) => {
+    const {data} = await  $authHost.put('/users/admin/' + id, updatedUser)
+    return data
+}

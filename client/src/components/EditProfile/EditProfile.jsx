@@ -3,12 +3,19 @@ import {Button, Card, Form} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
 import {updateProfile, updateUserProfile} from "../../redux/user-reducer";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import {EDIT_PROFILE_ADMIN} from "../../utils/consts";
+import {updateAdminUserThunk} from "../../redux/admin-reducer";
 
 const EditProfile = () => {
-    const user = useSelector(state => state.user.user)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const {pathname} = useLocation()
+    console.log(pathname)
+    const currentUser = useSelector(state => state.admin.currentUser)
+    const meUser = useSelector(state => state.user.user)
+    let user = pathname === EDIT_PROFILE_ADMIN ? currentUser : meUser
+
     const {
         register,
         formState: {
@@ -20,11 +27,16 @@ const EditProfile = () => {
         mode:"onBlur"
     })
     const onSubmit = (data) => {
-        const id = user.id
-        dispatch(updateUserProfile({
-            id,
-            ...data
-        }))
+        if(pathname === EDIT_PROFILE_ADMIN) {
+            dispatch(updateAdminUserThunk(user.id, data))
+        } else {
+            const id = user.id
+            dispatch(updateUserProfile({
+                id,
+                ...data
+            }))
+        }
+
         navigate(-1)
     }
     return (

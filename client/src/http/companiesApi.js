@@ -1,6 +1,4 @@
 import {$authHost, $host} from "./index";
-import jwt_decode from 'jwt-decode'
-
 
 
 export const  getCompanies = async () => {
@@ -20,5 +18,10 @@ export const updateCompany = async (company) => {
 
 export const getCompany = async (name) => {
     const data = await $authHost.get('/companies/' + name)
+    return data
+}
+
+export const deleteCompany = async (id) => {
+    const data = await $authHost.delete('/companies/' + id)
     return data
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {CreateCompanyDto} from "./dto/create-company.dto";
 import {InjectModel} from "@nestjs/sequelize";
 import {Company} from "./companies.model";
@@ -30,10 +30,12 @@ export class CompaniesService {
         return company
     }
 
-    async updateCompany(dto: UpdateCompanyDto) {
+    async updateCompany(dto: UpdateCompanyDto, req:any) {
+        const userId = req.user.id
         const id = dto.id
-        const updatedCompany = await this.companyRepository.update({...dto}, {where: {id}})
-        return updatedCompany
+        const updatedCompany = await this.companyRepository.update({...dto}, {where: {id, userId}})
+        if(updatedCompany) return  updatedCompany
+        return new HttpException('You can update only your company', HttpStatus.FORBIDDEN)
     }
 
     async getAllCompanies() {
@@ -52,5 +54,17 @@ export class CompaniesService {
             total: count,
             companies: rows
         }
+    }
+
+    async deleteMyCompany(id, req:any) {
+        const userId = req.user.id
+        const deletedCompany =  await this.companyRepository.destroy({
+            where:{
+                userId,
+                id
+            }
+        })
+        if(deletedCompany) return  "Deleted Successfully"
+        return new HttpException('Cant delete this company', HttpStatus.BAD_REQUEST)
     }
 }

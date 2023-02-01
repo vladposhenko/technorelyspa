@@ -1,4 +1,16 @@
-import {Body, Controller, Get, Param, Post, Put, Req, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    Post,
+    Put,
+    Req,
+    UploadedFile,
+    UseGuards,
+    UseInterceptors
+} from '@nestjs/common';
 import {CreateCompanyDto} from "./dto/create-company.dto";
 import {CompaniesService} from "./companies.service";
 import {FileInterceptor} from "@nestjs/platform-express";
@@ -30,6 +42,14 @@ export class CompaniesController {
         return this.companiesService.getMyCompanies(req)
     }
 
+    @Delete('/:id')
+    @UseGuards(JwtAuthGuard)
+    deleteMyCompany(@Param('id') id:string,
+                    @Req() req: Request
+                    ) {
+        return this.companiesService.deleteMyCompany(id, req)
+    }
+
     @Get('/:value')
     @UseGuards(JwtAuthGuard)
     getCompanyByName(@Param('value') value:string) {
@@ -38,8 +58,10 @@ export class CompaniesController {
 
     @Put()
     @UseGuards(JwtAuthGuard)
-    updateCompany(@Body() dto: UpdateCompanyDto) {
-        return this.companiesService.updateCompany(dto)
+    updateCompany(@Body() dto: UpdateCompanyDto,
+                  @Req() req: Request
+                  ) {
+        return this.companiesService.updateCompany(dto, req)
     }
 
     @Post()
