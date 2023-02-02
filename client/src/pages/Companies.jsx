@@ -5,14 +5,20 @@ import {deleteMyCompany, getUserCompanies} from "../redux/companies-reducer";
 import {useNavigate} from "react-router-dom";
 import {deleteCompany} from "../http/companiesApi";
 import {withLoading} from "../hoc/withLoading";
+import Paginator from "../components/Paginator/Paginator";
+import {getAllUsers} from "../redux/admin-reducer";
 
 const Companies = () => {
     const dispatch = useDispatch()
     const companies = useSelector(state => state.companies.companiesList)
+    const totalCountMyCompanies = useSelector(state => state.companies.totalCountMyCompanies)
     const navigate = useNavigate()
     useEffect(() => {
         dispatch(getUserCompanies())
     },[])
+    const handleClick = (page) => {
+        dispatch(getUserCompanies(page))
+    }
     return (
         <div className="content p-0" style={{display:'block', width:'100%'}}>
             <div className="p-4">
@@ -20,7 +26,7 @@ const Companies = () => {
                 <div className='pt-3'>
                     <Button variant="secondary" onClick={() => navigate('/companies/create')}>Создать новую компанию</Button>
                 </div>
-                <div className="mt-3 d-flex flex-row flex-wrap justify-content-center gap-3">
+                <div className="mt-3 d-flex flex-row flex-wrap justify-content-center gap-3 mb-3">
                     {companies && companies?.map((company) =>
                         <Card
                             style={{cursor:'pointer', width:'370px'}}>
@@ -36,6 +42,7 @@ const Companies = () => {
                         </Card>
                     )}
                 </div>
+                <Paginator handleClick={handleClick} totalCount={totalCountMyCompanies}/>
             </div>
         </div>
     );

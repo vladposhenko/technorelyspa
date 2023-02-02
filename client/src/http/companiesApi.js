@@ -1,8 +1,8 @@
 import {$authHost, $host} from "./index";
 
 
-export const  getCompanies = async () => {
-    const data = await $authHost.get('/companies/my')
+export const  getCompanies = async (page) => {
+    const data = await $authHost.get('/companies/my', {params: { page: page, size: 6 }, })
     return data
 }
 

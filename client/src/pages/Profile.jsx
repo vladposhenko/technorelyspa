@@ -28,6 +28,7 @@ const Profile = () => {
         if(params.id) dispatch(getOneUserThunk(params.id))
         dispatch(getUserCompanies())
     },[])
+    if(isLoading) return <Spinner/>
     return (
         <Container>
             <div className=" gap-5 position-relative p-3">

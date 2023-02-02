@@ -6,12 +6,14 @@ const SET_IS_LOADING = 'SET_IS_LOADING'
 const SET_CURRENT_COMPANY = 'SET_CURRENT_COMPANY'
 const SET_EDIT_MODE = 'SET_EDIT_MODE'
 const DELETE_COMPANY = 'DELETE_COMPANY'
+const SET_TOTAL_COUNT_MY_COMPANIES = 'SET_TOTAL_COUNT_MY_COMPANIES'
 
 const initialState = {
     companiesList:[],
     isLoading: false,
     currentCompany:{},
     isEditMode:false,
+    totalCountMyCompanies:0
 }
 
 
@@ -31,9 +33,11 @@ const companiesReducer = (state = initialState, action) => {
             return {...state, isEditMode: action.payload}
         }
         case DELETE_COMPANY : {
-            debugger;
             let companiesList = state.companiesList.filter(c => c.id !== action.payload)
             return {...state, companiesList}
+        }
+        case SET_TOTAL_COUNT_MY_COMPANIES: {
+            return {...state, totalCountMyCompanies: action.payload}
         }
         default:{
             return state
@@ -45,12 +49,14 @@ const companiesReducer = (state = initialState, action) => {
 export const setCompanies = (companies) => ({ type:SET_COMPANIES, payload:companies })
 export const setCurrentCompany = (company) => ({ type:SET_CURRENT_COMPANY, payload:company })
 export const setIsEditMode = (isEditMode) => ({ type:SET_EDIT_MODE, payload:isEditMode })
+export const setTotalCountMyCompanies = (count) => ({ type:SET_TOTAL_COUNT_MY_COMPANIES, payload:count })
 export const deleteMyCompanyAction = (id) => ({ type:DELETE_COMPANY, payload:id })
 
-export const getUserCompanies = () => async (dispatch) => {
+export const getUserCompanies = (page) => async (dispatch) => {
     try {
-        let response = await getCompanies()
-        dispatch(setCompanies(response.data))
+        let { data } = await getCompanies(page)
+        dispatch(setCompanies(data.users))
+        dispatch(setTotalCountMyCompanies(data.total))
     } catch (e) {
         console.log(e)
     }
@@ -58,8 +64,10 @@ export const getUserCompanies = () => async (dispatch) => {
 
 export const createUserCompany = (company) => async (dispatch) => {
     try {
-        let response = await createCompany(company)
+        dispatch(setIsLoading(true))
+        await createCompany(company)
         dispatch(getUserCompanies())
+        dispatch(setIsLoading(false))
     } catch (e) {
         alert(e.response.data.message)
     }

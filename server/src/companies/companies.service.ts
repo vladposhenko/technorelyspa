@@ -25,8 +25,18 @@ export class CompaniesService {
 
     async getMyCompanies(req:any) {
         const userId = req.user.id
-        const companies = await this.companyRepository.findAll({where: {userId}})
-        return companies
+        const {page = 0, size = 6} = req.query;
+        let options = {
+            where: { userId },
+            limit: +size,
+            offset: (+page) * (+size)
+        }
+
+        const {count, rows} = await this.companyRepository.findAndCountAll(options)
+        return {
+            total: count,
+            users: rows
+        }
     }
 
     async getCompanyByName(name: string) {
