@@ -54,9 +54,11 @@ export const deleteMyCompanyAction = (id) => ({ type:DELETE_COMPANY, payload:id 
 
 export const getUserCompanies = (page) => async (dispatch) => {
     try {
+        dispatch(setIsLoading(true))
         let { data } = await getCompanies(page)
         dispatch(setCompanies(data.users))
         dispatch(setTotalCountMyCompanies(data.total))
+        dispatch(setIsLoading(false))
     } catch (e) {
         console.log(e)
     }

@@ -7,6 +7,7 @@ import {deleteCompany} from "../http/companiesApi";
 import {withLoading} from "../hoc/withLoading";
 import Paginator from "../components/Paginator/Paginator";
 import {getAllUsers} from "../redux/admin-reducer";
+import Company from "../components/Company/Company";
 
 const Companies = () => {
     const dispatch = useDispatch()
@@ -16,8 +17,14 @@ const Companies = () => {
     useEffect(() => {
         dispatch(getUserCompanies())
     },[])
-    const handleClick = (page) => {
+    const handleClick = page => {
         dispatch(getUserCompanies(page))
+    }
+    const handleCardDelete = id => {
+        dispatch(deleteMyCompany(id))
+    }
+    const handleCardDetails = name => {
+        navigate('/companies/' + name)
     }
     return (
         <div className="content p-0" style={{display:'block', width:'100%'}}>
@@ -28,18 +35,7 @@ const Companies = () => {
                 </div>
                 <div className="mt-3 d-flex flex-row flex-wrap justify-content-center gap-3 mb-3">
                     {companies && companies?.map((company) =>
-                        <Card
-                            style={{cursor:'pointer', width:'370px'}}>
-                            <Card.Header className="d-flex justify-content-between align-items-center" as="h3">{company.name}
-                                <Button onClick={() => dispatch(deleteMyCompany(company.id))} size="sm" variant="secondary">Удалить</Button>
-                            </Card.Header>
-                            <Card.Img style={{width:'50px'}} className="m-auto mt-3"
-                                      src="https://www.seekpng.com/png/full/475-4758272_line-logo-black-png-logo.png"></Card.Img>
-                            <Card.Text className="mt-3">
-                                Сфера деятельности: {company.service_of_activity}
-                            </Card.Text>
-                            <Button onClick={() => navigate('/companies/' + company.name)} style={{width: '50%', margin:'20px auto'}} variant="outline-secondary">Детальнее</Button>
-                        </Card>
+                        <Company company={company} handleCardDelete={handleCardDelete} handleCardDetails={handleCardDetails}/>
                     )}
                 </div>
                 <Paginator handleClick={handleClick} totalCount={totalCountMyCompanies}/>
@@ -48,4 +44,4 @@ const Companies = () => {
     );
 };
 
-export default withLoading(Companies);
+export default Companies;
