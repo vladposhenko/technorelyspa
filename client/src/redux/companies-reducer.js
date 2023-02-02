@@ -11,7 +11,7 @@ const initialState = {
     companiesList:[],
     isLoading: false,
     currentCompany:{},
-    isEditMode:false
+    isEditMode:false,
 }
 
 
@@ -61,7 +61,7 @@ export const createUserCompany = (company) => async (dispatch) => {
         let response = await createCompany(company)
         dispatch(getUserCompanies())
     } catch (e) {
-        console.log(e)
+        alert(e.response.data.message)
     }
 }
 
@@ -72,7 +72,7 @@ export const updateUserCompany = (company) => async (dispatch) => {
         dispatch(getUserCompanies())
         dispatch(setIsLoading(false))
     } catch (e) {
-        console.log(e)
+        alert(e.response.data.message)
     }
 }
 

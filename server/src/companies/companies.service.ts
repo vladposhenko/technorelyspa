@@ -14,7 +14,11 @@ export class CompaniesService {
 
     async createCompany(dto: CreateCompanyDto, req:any) {
         const userId = req.user.id
-        console.log(userId)
+        const name = dto.name
+        const isExist = await this.companyRepository.findOne({where:{name}})
+        if(isExist) {
+            throw new HttpException('Компания с таким именем уже существует', HttpStatus.CONFLICT)
+        }
         const company = await this.companyRepository.create({...dto, userId})
         return company
     }
@@ -33,6 +37,11 @@ export class CompaniesService {
     async updateCompany(dto: UpdateCompanyDto, req:any) {
         const userId = req.user.id
         const id = dto.id
+        const name = dto.name
+        const isExist = await this.companyRepository.findOne({where:{name}})
+        if(isExist) {
+            throw new HttpException('Компания с таким именем уже существует', HttpStatus.CONFLICT)
+        }
         const updatedCompany = await this.companyRepository.update({...dto}, {where: {id, userId}})
         if(updatedCompany) return  updatedCompany
         return new HttpException('You can update only your company', HttpStatus.FORBIDDEN)
