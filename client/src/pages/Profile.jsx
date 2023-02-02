@@ -9,11 +9,11 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {COMPANIES_ROUTE, EDIT_PROFILE_ADMIN, PROFILE_ADMIN_ROUTE, PROFILE_EDIT_ROUTE} from "../utils/consts";
 import {getOneUserThunk, setCurrentUser} from "../redux/admin-reducer";
 import BackButton from "../components/UI/BackButton";
+import {withLoading} from "../hoc/withLoading";
 
 const Profile = () => {
     const params = useParams()
     const location = useLocation()
-    console.log(location)
     const meUser = useSelector(state => state.user.user)
     const currentUser = useSelector(state => state.admin.currentUser)
     const isLoading = useSelector(state => state.auth.isLoading)
@@ -28,7 +28,6 @@ const Profile = () => {
         if(params.id) dispatch(getOneUserThunk(params.id))
         dispatch(getUserCompanies())
     },[])
-    if(isLoading) return <Spinner/>
     return (
         <Container>
             <div className=" gap-5 position-relative p-3">
@@ -67,7 +66,6 @@ const Profile = () => {
                             <Card.Text>Описание: {user?.description}</Card.Text>
                             <Card.Text>Должность: {user?.position}</Card.Text>
                             <Button onClick={() => {
-                                debugger;
                                 if(location.pathname === ('/admin/profile/' + params.id)) {
                                     navigate('/admin/profile/edit')
                                 } else {

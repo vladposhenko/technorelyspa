@@ -44,6 +44,7 @@ const EditProfile = () => {
             <Card className="p-5" style={{width:'600px'}}>
                 <Card.Title>Редактирование профиля</Card.Title>
                 <Form onSubmit={handleSubmit(onSubmit)}>
+                    <p className="text-lg-start mb-3">Имя: </p>
                     <Form.Control
                         {...register('first_name', {
                             value: user.first_name,
@@ -55,6 +56,7 @@ const EditProfile = () => {
                         })}
                         className="mt-3" placeholder="Имя"/>
                     <div className="text-danger mt-2">{errors?.first_name && <p>{errors?.first_name?.message || 'Ошибка'}</p>}</div>
+                    <p className="text-lg-start mb-3">Фамилия: </p>
                     <Form.Control
                         {...register('last_name', {
                             value:user.last_name,
@@ -66,6 +68,7 @@ const EditProfile = () => {
                         })}
                         className="mt-3" placeholder="Фамилия"/>
                     <div className="text-danger mt-2">{errors?.last_name && <p>{errors?.last_name?.message || 'Ошибка'}</p>}</div>
+                    <p className="text-lg-start mb-3">Номер телефона: </p>
                     <Form.Control
                         {...register('phone_number', {
                             value:user.phone_number,
@@ -74,6 +77,7 @@ const EditProfile = () => {
                         })}
                         className="mt-3" placeholder="Номер телефона"/>
                     <div className="text-danger mt-2">{errors?.phone_number && <p>{errors?.phone_number?.message || 'Ошибка'}</p>}</div>
+                    <p className="text-lg-start mb-3">Никнейм: </p>
                     <Form.Control
                         {...register('nick_name', {
                             value:user.nick_name,
@@ -81,6 +85,7 @@ const EditProfile = () => {
                         })}
                         className="mt-3" placeholder="Никнейм"/>
                     <div className="text-danger mt-2">{errors?.nick_name && <p>{errors?.nick_name?.message || 'Ошибка'}</p>}</div>
+                    <p className="text-lg-start mb-3">Описание: </p>
                     <Form.Control
                         {...register('description', {
                             value:user.description,
@@ -88,6 +93,7 @@ const EditProfile = () => {
                         })}
                         className="mt-3" placeholder="Описание"/>
                     <div className="text-danger mt-2">{errors?.description && <p>{errors?.description?.message || 'Ошибка'}</p>}</div>
+                    <p className="text-lg-start mb-3">Должность: </p>
                     <Form.Control
                         {...register('position', {
                             value:user.position,

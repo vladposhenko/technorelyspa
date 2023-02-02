@@ -4,6 +4,7 @@ import {getAllCompanies, getAllUsers} from "../../redux/admin-reducer";
 import Paginator from "../Paginator/Paginator";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {withLoading} from "../../hoc/withLoading";
 
 const AllCompanies = () => {
     const dispatch = useDispatch()
@@ -27,7 +28,11 @@ const AllCompanies = () => {
                             <Card.Header as="h3">{company.name}</Card.Header>
                             <Card.Img style={{width:'50px'}} className="m-auto mt-3"
                                       src="https://www.seekpng.com/png/full/475-4758272_line-logo-black-png-logo.png"></Card.Img>
-                            <Button onClick={() => navigate('/companies/' + company.name)} style={{width: '50%', margin:'20px auto'}} variant="outline-secondary">Детальнее</Button>
+                            <Button
+                                    disabled
+                                    onClick={() => navigate('/admin/companies/' + company.name)}
+                                    style={{width: '50%', margin:'20px auto'}}
+                                    variant="outline-secondary">Детальнее(в разработке)</Button>
                         </Card>
                     ))}
                 </ListGroup>

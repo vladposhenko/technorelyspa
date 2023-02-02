@@ -9,8 +9,8 @@ import {useForm} from "react-hook-form";
 
 
 const Auth = () => {
-    const navigate = useNavigate()
     const { isAuth, isLoading, serverError } = useSelector(state => state.auth)
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const location = useLocation()
     const {

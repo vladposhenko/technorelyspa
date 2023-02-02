@@ -58,8 +58,21 @@ body {
 
 .wrapper {
   height: 100%;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 2.5rem;
 }
 
 .content {
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 120px);
+}
+
+.pagination__item.active .page-link {
+  color:#fff;
+  background-color:#6c757d;
+  border-color: #6c757d;
+}
+
+.pagination__item .page-link{
+  color:#6c757d;
 }

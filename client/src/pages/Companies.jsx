@@ -4,17 +4,15 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteMyCompany, getUserCompanies} from "../redux/companies-reducer";
 import {useNavigate} from "react-router-dom";
 import {deleteCompany} from "../http/companiesApi";
+import {withLoading} from "../hoc/withLoading";
 
 const Companies = () => {
     const dispatch = useDispatch()
     const companies = useSelector(state => state.companies.companiesList)
-    const isLoading = useSelector(state => state.auth.isLoading)
     const navigate = useNavigate()
     useEffect(() => {
         dispatch(getUserCompanies())
     },[])
-
-    if(isLoading) return <Spinner/>
     return (
         <div className="content p-0" style={{display:'block', width:'100%'}}>
             <div className="p-4">
@@ -43,4 +41,4 @@ const Companies = () => {
     );
 };
 
-export default Companies;
+export default withLoading(Companies);

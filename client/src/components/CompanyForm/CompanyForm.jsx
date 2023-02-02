@@ -4,7 +4,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {createUserCompany, setIsEditMode, updateUserCompany} from "../../redux/companies-reducer";
 import {useForm} from "react-hook-form";
-import {EDIT_COMPANY_ROUTE} from "../../utils/consts";
+import {COMPANIES_ROUTE, EDIT_COMPANY_ROUTE} from "../../utils/consts";
 import BackButton from "../UI/BackButton";
 
 const CompanyForm = () => {
@@ -32,7 +32,7 @@ const CompanyForm = () => {
                 ...data
             }))
             dispatch(setIsEditMode(false))
-            navigate(-1)
+            navigate(COMPANIES_ROUTE)
         } else {
             dispatch(createUserCompany(data))
             navigate(-1)
@@ -46,7 +46,6 @@ const CompanyForm = () => {
             </Button>
             <h2 className="mb-3 fw-bold" style={{fontSize:'20px'}}>{currentCompany ? 'Редактирование компании' : 'Cоздание новой компании'}</h2>
             <Form onSubmit={handleSubmit(onSubmit)} className="d-flex flex-column" style={{width: '30%', margin: '50px auto'}}>
-
                 <p className="text-lg-start mb-3">Имя компании: </p>
                 <Form.Control
                     {...register('name', {

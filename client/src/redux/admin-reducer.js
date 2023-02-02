@@ -1,4 +1,4 @@
-import {getCompanies, getOneUser, getUsers, updateAdminUser} from "../http/adminApi";
+import {getCompanies, getOneCompany, getOneUser, getUsers, updateAdminUser} from "../http/adminApi";
 import {setIsLoading} from "./auth-reducer";
 import {update} from "../http/userApi";
 
@@ -8,6 +8,7 @@ const SET_ALL_COMPANIES = 'SET_ALL_COMPANIES'
 const SET_TOTAL_COUNT_USERS = 'SET_TOTAL_COUNT_USERS'
 const SET_TOTAL_COUNT_COMPANIES = 'SET_TOTAL_COUNT_COMPANIES'
 const SET_CURRENT_USER = 'SET_CURRENT_USER'
+const SET_CURRENT_COMPANY_ADMIN = 'SET_CURRENT_COMPANY_ADMIN'
 const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE'
 
 const initialState = {
@@ -15,7 +16,8 @@ const initialState = {
     companies:[],
     totalCountOfUsers:0,
     totalCountOfCompanies:0,
-    currentUser:null
+    currentUser:null,
+    currentCompanyAdmin:null
 }
 
 // REDUCER
@@ -37,6 +39,9 @@ const adminReducer = (state = initialState, action) => {
         case SET_CURRENT_USER: {
             return {...state, currentUser: action.payload}
         }
+        case SET_CURRENT_COMPANY_ADMIN: {
+            return {...state, currentCompanyAdmin: action.payload}
+        }
         case UPDATE_USER_PROFILE: {
             let updatedUser = action.payload
             return {...state, currentUser: { ...state.user, ...updatedUser }}
@@ -54,6 +59,7 @@ export const setAllCompanies = (companies) => ({ type:SET_ALL_COMPANIES, payload
 export const setTotalCountUsers = (count) => ({ type:SET_TOTAL_COUNT_USERS, payload: count })
 export const setTotalCountCompanies = (count) => ({ type:SET_TOTAL_COUNT_COMPANIES, payload: count })
 export const setCurrentUser = (user) => ({ type:SET_CURRENT_USER, payload: user })
+export const setCurrentCompanyAdmin = (company) => ({ type:SET_CURRENT_COMPANY_ADMIN, payload: company })
 export const updateUserProfile = (user) => ({ type:UPDATE_USER_PROFILE, payload: user })
 
 
@@ -87,6 +93,18 @@ export const getOneUserThunk = (id) => async (dispatch) => {
         dispatch(setIsLoading(true))
         let {data} = await getOneUser(id)
         dispatch(setCurrentUser(data))
+        dispatch(setIsLoading(false))
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const getOneCompanyThunk = (name) => async (dispatch) => {
+    try {
+        debugger;
+        dispatch(setIsLoading(true))
+        let {data} = await getOneCompany(name)
+        dispatch(setCurrentCompanyAdmin(data))
         dispatch(setIsLoading(false))
     } catch (e) {
         console.log(e)

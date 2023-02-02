@@ -33,7 +33,6 @@ export class AuthService {
     }
 
     private async generateToken(user: User) {
-        console.log(user)
         const payload = {
             email: user.email,
             id: user.id,
@@ -52,7 +51,11 @@ export class AuthService {
 
     private async validateUser(userDto: GetUserDto) {
         const user = await this.userService.getUserByEmail(userDto.email)
+        if(!user) {
+            throw new UnauthorizedException({message: 'Пользователя с таким email не существует '})
+        }
         const passwordEquals = await bcrypt.compare(userDto.password, user.password)
+
         if(user && passwordEquals) {
             return user
         }

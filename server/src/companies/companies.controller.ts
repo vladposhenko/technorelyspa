@@ -36,6 +36,13 @@ export class CompaniesController {
         return this.companiesService.paginate(req)
     }
 
+    @Roles('ADMIN')
+    @UseGuards(RolesGuard)
+    @Get('/admin/:name')
+    getOneCompanyAdmin(@Param('name') name:string) {
+        return this.companiesService.getOneCompanyAdmin(name)
+    }
+
     @Get('/my')
     @UseGuards(JwtAuthGuard)
     getMyCompanies(@Req() req: Request) {

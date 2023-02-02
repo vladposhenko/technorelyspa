@@ -8,7 +8,9 @@ const Paginator = ({totalCount = 36, handleClick}) => {
 
     for (let number = 0; number <= countOfPages; number++) {
         items.push(
-            <Pagination.Item onClick={() => {
+            <Pagination.Item
+                className="pagination__item"
+                onClick={() => {
                 setActivePage(number)
                 handleClick(number)
             }} key={number} active={number === activePage}>

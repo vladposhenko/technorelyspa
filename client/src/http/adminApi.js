@@ -11,12 +11,17 @@ export const getCompanies = async (page) => {
 }
 
 export const getOneUser = async (id) => {
-    debugger;
     const data = await $authHost.get('/users/' + id)
     return data
 }
 
 export const updateAdminUser = async (id, updatedUser) => {
     const {data} = await  $authHost.put('/users/admin/' + id, updatedUser)
+    return data
+}
+
+export const getOneCompany = async (name) => {
+    debugger;
+    const data = await $authHost.get('/companies/admin/' + name)
     return data
 }

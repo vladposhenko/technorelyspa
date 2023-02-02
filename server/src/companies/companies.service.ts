@@ -67,4 +67,10 @@ export class CompaniesService {
         if(deletedCompany) return  "Deleted Successfully"
         return new HttpException('Cant delete this company', HttpStatus.BAD_REQUEST)
     }
+
+    async getOneCompanyAdmin(name) {
+        const company = await this.companyRepository.findOne({where: {name}})
+        return company
+    }
+
 }

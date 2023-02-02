@@ -1,5 +1,5 @@
 import React from 'react';
-// import './footer.css'
+import './footer.css'
 import Container from "../UI/Container";
 import {Nav, Navbar, NavDropdown} from "react-bootstrap";
 const Footer = () => {

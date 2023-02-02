@@ -13,7 +13,6 @@ import {Spinner} from "react-bootstrap";
 
 function App() {
     const dispatch = useDispatch()
-    const isLoading = useSelector(state => state.auth.isLoading)
     useEffect(() => {
         dispatch(checkThunk())
     },[])
