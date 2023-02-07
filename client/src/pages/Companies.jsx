@@ -24,7 +24,6 @@ const Companies = () => {
     const handleCardDetails = name => {
         navigate('/companies/' + name)
     }
-    if (isLoading) return <Spinner/>
     return (
         <div className="content p-0" style={{display:'block', width:'100%'}}>
             <div className="p-4">
@@ -32,15 +31,17 @@ const Companies = () => {
                 <div className='pt-3'>
                     <Button variant="secondary" onClick={() => navigate('/companies/create')}>Создать новую компанию</Button>
                 </div>
-                <div className="mt-3 d-flex flex-row flex-wrap justify-content-center gap-3 mb-3">
-                    {companies && companies?.map((company) =>
-                        <Company
-                            key={company.name}
-                            company={company}
-                            handleCardDelete={handleCardDelete}
-                            handleCardDetails={handleCardDetails}/>
-                    )}
-                </div>
+                {isLoading
+                ? <Spinner className="mt-3 mb-3"/>
+                :    <div className="mt-3 d-flex flex-row flex-wrap justify-content-center gap-3 mb-3">
+                        {companies && companies?.map((company) =>
+                            <Company
+                                key={company.name}
+                                company={company}
+                                handleCardDelete={handleCardDelete}
+                                handleCardDetails={handleCardDetails}/>
+                        )}
+                    </div>}
                 <Paginator handleClick={handleClick} totalCount={totalCountMyCompanies}/>
             </div>
         </div>
