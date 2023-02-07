@@ -1,22 +1,21 @@
 import React, {useEffect} from 'react';
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getCompanyByName, setIsEditMode} from "../redux/companies-reducer";
 import {Button, Card, Spinner} from "react-bootstrap";
 import BackButton from "../components/UI/BackButton";
 import Container from "react-bootstrap/Container";
-import {getOneCompanyThunk} from "../redux/admin-reducer";
-import {withLoading} from "../hoc/withLoading";
+
 
 const CompanyInfo = () => {
-    const params = useParams()
+    const { name } = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const currentCompany = useSelector(state => state.companies.currentCompany)
     const isLoading = useSelector(state => state.auth.isLoading)
 
     useEffect(() => {
-        dispatch(getCompanyByName(params.name))
+        dispatch(getCompanyByName(name))
     },[])
 
     const handleClick = () => {

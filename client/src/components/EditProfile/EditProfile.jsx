@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Card, Form} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
-import {updateProfile, updateUserProfile} from "../../redux/user-reducer";
+import {updateUserProfile} from "../../redux/user-reducer";
 import {useLocation, useNavigate} from "react-router-dom";
 import {EDIT_PROFILE_ADMIN} from "../../utils/consts";
 import {updateAdminUserThunk} from "../../redux/admin-reducer";
@@ -11,7 +11,6 @@ const EditProfile = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {pathname} = useLocation()
-    console.log(pathname)
     const currentUser = useSelector(state => state.admin.currentUser)
     const meUser = useSelector(state => state.user.user)
     let user = pathname === EDIT_PROFILE_ADMIN ? currentUser : meUser
@@ -19,7 +18,7 @@ const EditProfile = () => {
     const {
         register,
         formState: {
-            errors, isValid
+            errors
         },
         reset,
         handleSubmit
@@ -36,7 +35,7 @@ const EditProfile = () => {
                 ...data
             }))
         }
-
+        reset()
         navigate(-1)
     }
     return (

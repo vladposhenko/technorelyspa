@@ -27,7 +27,6 @@ const adminReducer = (state = initialState, action) => {
             return {...state, users: action.payload}
         }
         case SET_ALL_COMPANIES:{
-            debugger;
             return {...state, companies: action.payload}
         }
         case SET_TOTAL_COUNT_USERS: {
@@ -101,7 +100,6 @@ export const getOneUserThunk = (id) => async (dispatch) => {
 
 export const getOneCompanyThunk = (name) => async (dispatch) => {
     try {
-        debugger;
         dispatch(setIsLoading(true))
         let {data} = await getOneCompany(name)
         dispatch(setCurrentCompanyAdmin(data))
@@ -114,7 +112,6 @@ export const getOneCompanyThunk = (name) => async (dispatch) => {
 
 export const updateAdminUserThunk = (id, updatedUser) => async (dispatch) => {
     try {
-        debugger;
         dispatch(setIsLoading(true))
         let data = await updateAdminUser(id,updatedUser)
         dispatch(updateUserProfile(data))

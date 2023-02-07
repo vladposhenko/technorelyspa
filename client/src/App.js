@@ -20,7 +20,7 @@ function App() {
       <BrowserRouter>
           <div className="App">
                                         <div className="wrapper">
-                          <Header/>
+                          <Header dispatch={dispatch}/>
                           <div className="content">
                               <AppRouter/>
                           </div>

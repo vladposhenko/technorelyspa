@@ -7,11 +7,10 @@ export const  getCompanies = async (page) => {
 }
 
 export const createCompany = async (company) => {
-    const data = await $authHost.post('/companies', company)
+    await $authHost.post('/companies', company)
 }
 
 export const updateCompany = async (company) => {
-    debugger;
     const data = await $authHost.put('/companies', company)
     return data
 }

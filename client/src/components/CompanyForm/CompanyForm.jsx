@@ -10,15 +10,13 @@ import BackButton from "../UI/BackButton";
 const CompanyForm = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const isEditMode = useSelector(state => state.companies.isEditMode)
     const company = useSelector(state => state.companies.currentCompany)
     const location = useLocation()
-    console.log(location)
     let currentCompany = location.pathname === EDIT_COMPANY_ROUTE ? company : null
     const {
         register,
         formState: {
-            errors, isValid
+            errors
         },
         reset,
         handleSubmit
@@ -36,6 +34,7 @@ const CompanyForm = () => {
         } else {
             dispatch(createUserCompany(data))
             navigate(-1)
+            reset()
         }
 
     }

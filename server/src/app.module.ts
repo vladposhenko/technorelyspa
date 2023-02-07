@@ -12,6 +12,7 @@ import { CompaniesModule } from './companies/companies.module';
 import {Company} from "./companies/companies.model";
 import { FilesModule } from './files/files.module';
 import {ApiTokenCheckMiddleware} from "./middleware/auth.middleware";
+import {BodyParserMiddleware} from "./middleware/body-parser.middleware";
 
 
 @Module({
@@ -38,4 +39,9 @@ import {ApiTokenCheckMiddleware} from "./middleware/auth.middleware";
   controllers: [UsersController],
   providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): any {
+    consumer
+      .apply(BodyParserMiddleware)
+  }
+}

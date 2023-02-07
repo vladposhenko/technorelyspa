@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 // import './header.css'
 import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {logOutThunk, setAuth, setAuthError} from "../../redux/auth-reducer";
+import {useSelector} from "react-redux";
+import {logOutThunk, setAuthErrorFailure} from "../../redux/auth-reducer";
 import {
     ADMIN_COMPANIES_ROUTE,
-    ADMIN_ROUTE,
     ADMIN_USERS_ROUTE,
     COMPANIES_ROUTE,
     LOGIN_ROUTE,
@@ -18,19 +17,17 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import {setIsUserAdmin, setUser} from "../../redux/user-reducer";
-import {setCurrentCompany} from "../../redux/companies-reducer";
-import {Badge, Figure, ListGroup} from "react-bootstrap";
+import {setUserSuccess} from "../../redux/user-reducer";
+import {Badge} from "react-bootstrap";
 
 
-const Header = () => {
+const Header = ({ dispatch }) => {
     const navigate = useNavigate()
     const isAuth = useSelector(state => state.auth.isAuth)
     const user = useSelector(state => state.user.user)
-    const dispatch = useDispatch()
     const isUserAdmin = useSelector(state => state.user.isUserAdmin)
     const handleClick = async () => {
-        dispatch(setUser(null))
+        dispatch(setUserSuccess(null))
         dispatch(logOutThunk())
         navigate(LOGIN_ROUTE)
     }
@@ -84,11 +81,11 @@ const Header = () => {
                             : <div style={{alignSelf:'end'}}>
                                 <Button size="sm" variant="secondary" onClick={() => {
                                     navigate(LOGIN_ROUTE)
-                                    dispatch(setAuthError(''))
+                                    dispatch(setAuthErrorFailure(''))
                                 } }>SignIn</Button>
                                 <Button size="sm" variant="secondary" onClick={() => {
                                     navigate(REGISTRATION_ROUTE)
-                                    dispatch(setAuthError(''))
+                                    dispatch(setAuthErrorFailure(''))
                                 } } style={{marginLeft:'20px'}}>SignUp</Button>
                             </div>
                         }

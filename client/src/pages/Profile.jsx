@@ -6,22 +6,21 @@ import Container from "react-bootstrap/Container";
 import {logOutThunk} from "../redux/auth-reducer";
 import {getUserCompanies} from "../redux/companies-reducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {COMPANIES_ROUTE, EDIT_PROFILE_ADMIN, PROFILE_ADMIN_ROUTE, PROFILE_EDIT_ROUTE} from "../utils/consts";
-import {getOneUserThunk, setCurrentUser} from "../redux/admin-reducer";
+import {COMPANIES_ROUTE, PROFILE_EDIT_ROUTE} from "../utils/consts";
+import {getOneUserThunk} from "../redux/admin-reducer";
 import BackButton from "../components/UI/BackButton";
-import {withLoading} from "../hoc/withLoading";
 
 const Profile = () => {
     const params = useParams()
     const location = useLocation()
-    const meUser = useSelector(state => state.user.user)
-    const currentUser = useSelector(state => state.admin.currentUser)
-    const isLoading = useSelector(state => state.auth.isLoading)
-    let user = params.id ? currentUser : meUser
-    const isUserAdmin = useSelector(state => state.user.isUserAdmin)
-    const companies = useSelector(state => state.companies.companiesList)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const meUser = useSelector(state => state.user.user)
+    const isUserAdmin = useSelector(state => state.user.isUserAdmin)
+    const currentUser = useSelector(state => state.admin.currentUser)
+    const isLoading = useSelector(state => state.auth.isLoading)
+    const companies = useSelector(state => state.companies.companiesList)
+    let user = params.id ? currentUser : meUser
     let companiesView = companies.slice(0, 4)
     let companiesMap = companies.length > 4 ? companiesView : companies
     useEffect(() => {
@@ -82,10 +81,15 @@ const Profile = () => {
                             <ListGroup>
                                 {params.id
                                     ? user?.company?.map((company) => (
-                                        <ListGroup.Item onClick={() => navigate('/companies/' + company.name)} action variant="outline-secondary" key={company.name}>{company.name}</ListGroup.Item>
+                                        <ListGroup.Item onClick={() => navigate('/companies/' + company.name)}
+                                                        action
+                                                        variant="outline-secondary"
+                                                        key={company.name}>{company.name}</ListGroup.Item>
                                     ))
                                     : companiesMap.map((company) => (
-                                        <ListGroup.Item onClick={() => navigate('/companies/' + company.name)} action variant="outline-secondary" key={company.name}>{company.name}</ListGroup.Item>
+                                        <ListGroup.Item onClick={() => navigate('/companies/' + company.name)}
+                                                        action variant="outline-secondary"
+                                                        key={company.name}>{company.name}</ListGroup.Item>
                                     ))
                                 }
                             </ListGroup>

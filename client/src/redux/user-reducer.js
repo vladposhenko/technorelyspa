@@ -1,10 +1,14 @@
 import {update} from "../http/userApi";
 
+
+// ACTIONS
 const SET_USER = 'SET_USER'
 const SET_IS_USER_ADMIN = 'SET_IS_USER_ADMIN'
 const SET_IS_PROFILE_EDITING = 'SET_IS_PROFILE_EDITING'
 const UPDATE_PROFILE = 'UPDATE_PROFILE'
 
+
+// INITIAL_STATE
 const initialState = {
     user:{},
     isUserAdmin:false,
@@ -12,6 +16,7 @@ const initialState = {
 }
 
 
+// REDUCER
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER:{
@@ -25,7 +30,6 @@ const userReducer = (state = initialState, action) => {
             return {...state, isProfileEditing: action.payload}
         }
         case UPDATE_PROFILE: {
-            debugger;
             let updatedUser = action.payload;
             return {...state, user: { ...state.user, ...updatedUser }}
         }
@@ -36,16 +40,17 @@ const userReducer = (state = initialState, action) => {
 }
 
 
-export const setUser = (user) => ({ type:SET_USER, payload:{...user} })
+// ACTION CREATORS
+export const setUserSuccess = (user) => ({ type:SET_USER, payload:{...user} })
 export const setIsUserAdmin = (user) => ({ type: SET_IS_USER_ADMIN, payload:user})
-export const setIsProfileEditing = (isProfileEditing) => ({ type: SET_IS_USER_ADMIN, payload:isProfileEditing})
-export const updateProfile = (updatedProfile) => ({type: UPDATE_PROFILE, payload: updatedProfile})
+export const updateProfileSuccess = (updatedProfile) => ({type: UPDATE_PROFILE, payload: updatedProfile})
 
 
+// THUNKS
 export const updateUserProfile = (updatedProfile) => async (dispatch) => {
     try {
         let data = await update(updatedProfile)
-        dispatch(updateProfile(data))
+        dispatch(updateProfileSuccess(data))
     } catch (e) {
         console.log(e)
     }

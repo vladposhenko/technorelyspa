@@ -3,7 +3,7 @@ import {Button, Container, Form, Row, Spinner} from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import {useLocation, useNavigate} from "react-router-dom";
 import {COMPANIES_ROUTE, LOGIN_ROUTE} from "../utils/consts";
-import {loginThunk, registrationThunk, setAuthError} from "../redux/auth-reducer";
+import {loginThunk, registrationThunk, setAuthErrorFailure} from "../redux/auth-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 
@@ -140,7 +140,7 @@ const Auth = () => {
                                 {isLogin ? 'Нет аккаунта? ' : 'Уже зарегистрированы? '}
                                 <a href="javascript:void(0)" onClick={() => {
                                     navigate(isLogin ? '/signup' : '/signin')
-                                    dispatch(setAuthError(''))
+                                    dispatch(setAuthErrorFailure(''))
                                 } }>
                                     {isLogin ? 'Зарегистрируйтесь' : 'Войдите'}
                                 </a>

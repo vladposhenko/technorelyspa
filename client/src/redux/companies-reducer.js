@@ -8,6 +8,7 @@ const SET_EDIT_MODE = 'SET_EDIT_MODE'
 const DELETE_COMPANY = 'DELETE_COMPANY'
 const SET_TOTAL_COUNT_MY_COMPANIES = 'SET_TOTAL_COUNT_MY_COMPANIES'
 
+
 const initialState = {
     companiesList:[],
     isLoading: false,
@@ -45,19 +46,21 @@ const companiesReducer = (state = initialState, action) => {
     }
 }
 
-
-export const setCompanies = (companies) => ({ type:SET_COMPANIES, payload:companies })
-export const setCurrentCompany = (company) => ({ type:SET_CURRENT_COMPANY, payload:company })
+// ACTION CREATORS
+export const setCompaniesSuccess = (companies) => ({ type:SET_COMPANIES, payload:companies })
+export const setCurrentCompanySuccess = (company) => ({ type:SET_CURRENT_COMPANY, payload:company })
 export const setIsEditMode = (isEditMode) => ({ type:SET_EDIT_MODE, payload:isEditMode })
-export const setTotalCountMyCompanies = (count) => ({ type:SET_TOTAL_COUNT_MY_COMPANIES, payload:count })
-export const deleteMyCompanyAction = (id) => ({ type:DELETE_COMPANY, payload:id })
+export const setTotalCountMyCompaniesSuccess = (count) => ({ type:SET_TOTAL_COUNT_MY_COMPANIES, payload:count })
+export const deleteMyCompanySuccess = (id) => ({ type:DELETE_COMPANY, payload:id })
 
+
+// THUNKS
 export const getUserCompanies = (page) => async (dispatch) => {
     try {
         dispatch(setIsLoading(true))
         let { data } = await getCompanies(page)
-        dispatch(setCompanies(data.users))
-        dispatch(setTotalCountMyCompanies(data.total))
+        dispatch(setCompaniesSuccess(data.users))
+        dispatch(setTotalCountMyCompaniesSuccess(data.total))
         dispatch(setIsLoading(false))
     } catch (e) {
         console.log(e)
@@ -90,10 +93,11 @@ export const getCompanyByName = (name) => async (dispatch) => {
     try {
         dispatch(setIsLoading(true))
         let { data } = await getCompany(name)
-        dispatch(setCurrentCompany(data))
+        dispatch(setCurrentCompanySuccess(data))
         dispatch(setIsLoading(false))
     } catch (e) {
-        console.log(e)
+        alert(e.response.data.message)
+        dispatch(setIsLoading(false))
     }
 }
 
@@ -102,7 +106,7 @@ export const deleteMyCompany = (id) => async (dispatch) => {
         debugger;
         dispatch(setIsLoading(true))
         await deleteCompany(id)
-        dispatch(deleteMyCompanyAction(id))
+        dispatch(deleteMyCompanySuccess(id))
         dispatch(setIsLoading(false))
     } catch (e) {
         console.log(e)

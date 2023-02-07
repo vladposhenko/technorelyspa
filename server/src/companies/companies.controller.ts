@@ -49,6 +49,14 @@ export class CompaniesController {
         return this.companiesService.getMyCompanies(req)
     }
 
+    @Get('/:value')
+    @UseGuards(JwtAuthGuard)
+    getCompanyByName(@Param('value') value:string,
+                     @Req() req: Request
+                     ) {
+        return this.companiesService.getCompanyByName(value, req)
+    }
+
     @Delete('/:id')
     @UseGuards(JwtAuthGuard)
     deleteMyCompany(@Param('id') id:string,
@@ -57,11 +65,6 @@ export class CompaniesController {
         return this.companiesService.deleteMyCompany(id, req)
     }
 
-    @Get('/:value')
-    @UseGuards(JwtAuthGuard)
-    getCompanyByName(@Param('value') value:string) {
-        return this.companiesService.getCompanyByName(value)
-    }
 
     @Put()
     @UseGuards(JwtAuthGuard)

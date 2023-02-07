@@ -4,7 +4,7 @@ import {UserService} from "../users/user.service";
 import * as bcrypt from "bcryptjs"
 import {User} from "../users/user.model";
 import {JwtService} from "@nestjs/jwt";
-import {GetUserDto} from "../users/dto/get-user.dto";
+import {LoginUserDto} from "../users/dto/login-user.dto";
 @Injectable()
 export class AuthService {
 
@@ -14,7 +14,7 @@ export class AuthService {
     }
 
 
-    async login(userDto: GetUserDto) {
+    async login(userDto: LoginUserDto) {
         const user = await this.validateUser(userDto)
         return this.generateToken(user)
     }
@@ -49,7 +49,7 @@ export class AuthService {
         }
     }
 
-    private async validateUser(userDto: GetUserDto) {
+    private async validateUser(userDto: LoginUserDto) {
         const user = await this.userService.getUserByEmail(userDto.email)
         if(!user) {
             throw new UnauthorizedException({message: 'Пользователя с таким email не существует '})

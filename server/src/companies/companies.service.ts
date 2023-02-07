@@ -39,8 +39,13 @@ export class CompaniesService {
         }
     }
 
-    async getCompanyByName(name: string) {
-        const company = await this.companyRepository.findOne({where: {name}})
+    async getCompanyByName(name: string, req:any) {
+        const userId = req.user.id
+        const company = await this.companyRepository.findOne({where: {name, userId}})
+        console.log(company)
+        if(!company) {
+            throw new HttpException('У вас нету доступа к даной компании', HttpStatus.FORBIDDEN)
+        }
         return company
     }
 
