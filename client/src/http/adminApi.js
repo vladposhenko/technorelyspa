@@ -21,7 +21,6 @@ export const updateAdminUser = async (id, updatedUser) => {
 }
 
 export const getOneCompany = async (name) => {
-    debugger;
     const data = await $authHost.get('/companies/admin/' + name)
     return data
 }

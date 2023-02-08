@@ -35,7 +35,6 @@ const EditProfile = () => {
                 ...data
             }))
         }
-        reset()
         navigate(-1)
     }
     return (

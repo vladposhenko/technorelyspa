@@ -41,7 +41,7 @@ import {BodyParserMiddleware} from "./middleware/body-parser.middleware";
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {
-    consumer
-      .apply(BodyParserMiddleware)
+    // consumer
+    //   .apply(BodyParserMiddleware)
   }
 }
