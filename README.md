@@ -1,5 +1,5 @@
 # technorelyspa
 to watch admin view login this account:
 
-vladposhenkowork@gmail.com
-admin123
+email: vladposhenkowork@gmail.com
+password: admin123
